@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 #include <sstream>
 
@@ -15,6 +16,8 @@
 
 #define DEB guylib::OutputHelper().out << __FILE__ << ":" << __LINE__ << ": "
 
+#define TIMER(name) guylib::TimerHelper __timer_helper_ ## name (#name)
+
 #define CHECK(x)                                                             \
   if (x) {                                                                   \
   } else                                                                     \
@@ -31,8 +34,20 @@ class OutputHelper {
   void throw_message() const;
 
   std::ostringstream out;
+
+  static std::string indentation;
 };
 
-//
+std::string sec_to_string(double seconds);
+
+class TimerHelper {
+ public:
+  TimerHelper(std::string name);
+  ~TimerHelper();
+
+ private:
+  std::string name;
+  std::chrono::high_resolution_clock::time_point start_time;
+};
 
 }  // namespace guylib
