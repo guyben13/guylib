@@ -14,13 +14,13 @@ OutputHelper::~OutputHelper() {
   size_t location = 0;
   std::string s = out.str();
   std::string_view str(s);
-  for (size_t next_loc = out.str().find('\n'); next_loc != std::string::npos && next_loc + 1 < str.size();
-       next_loc = out.str().find('\n', next_loc + 1)) {
+  for (size_t next_loc = str.find('\n'); next_loc != std::string::npos && next_loc + 1 < str.size();
+       next_loc = str.find('\n', next_loc + 1)) {
     std::cout << indentation << "  " << str.substr(location, next_loc + 1 - location);
     location = next_loc + 1;
   }
   std::cout << indentation << "  " << str.substr(location);
-  if (!out.str().empty() && str.back() != '\n') {
+  if (!str.empty() && str.back() != '\n') {
     std::cout << '\n';
   }
   std::cout << indentation << "==========================\n";
