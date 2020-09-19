@@ -1,6 +1,7 @@
 #include "../include/guylib.h"
 
 #include <iomanip>
+#include <string_view>
 
 namespace guylib {
 
@@ -9,10 +10,20 @@ std::string OutputHelper::indentation;
 OutputHelper::OutputHelper() {}
 
 OutputHelper::~OutputHelper() {
-  std::cout << indentation << out.str();
-  if (!out.str().empty() && out.str().back() != '\n') {
+  std::cout << indentation << "==========================\n";
+  size_t location = 0;
+  std::string s = out.str();
+  std::string_view str(s);
+  for (size_t next_loc = out.str().find('\n'); next_loc != std::string::npos && next_loc + 1 < str.size();
+       next_loc = out.str().find('\n', next_loc + 1)) {
+    std::cout << indentation << "  " << str.substr(location, next_loc + 1 - location);
+    location = next_loc + 1;
+  }
+  std::cout << indentation << "  " << str.substr(location);
+  if (!out.str().empty() && str.back() != '\n') {
     std::cout << '\n';
   }
+  std::cout << indentation << "==========================\n";
   std::cout << std::flush;
 }
 

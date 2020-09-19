@@ -8,6 +8,9 @@ int main() {
   double b = 3.14;
   DEB << OUT(a, b, a + b);
   DEB << "A line without newline";
+  DEB << "A line without newline";
+  DEB << "A line with\nmultiple\nnewlines\n";
+
 
   {
     TIMER(sleep);
@@ -16,7 +19,7 @@ int main() {
 
   try {
     TIMER(try);
-    CHECK(a < b);
+    CHECK(a < b) << OUT(a) << OUT(b);
   } catch (std::exception& e) {
     DEB << OUT(e.what());
   }

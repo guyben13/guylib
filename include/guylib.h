@@ -14,7 +14,7 @@
 #define OUT1(x, ...) OUTN(x) __VA_OPT__(<< "; " << OUT2(__VA_ARGS__))
 #define OUT(...) OUT1(__VA_ARGS__) << std::endl
 
-#define DEB guylib::OutputHelper().out << __FILE__ << ":" << __LINE__ << ": "
+#define DEB guylib::OutputHelper().out << __FILE__ << ":" << __LINE__ << ":\n"
 
 #define TIMER(name) guylib::TimerHelper __timer_helper_ ## name (#name)
 
@@ -22,7 +22,7 @@
   if (x) {                                                                   \
   } else                                                                     \
     for (guylib::OutputHelper output_helper;; output_helper.throw_message()) \
-    output_helper.out << __FILE__ << ":" << __LINE__ << ": CHECK(" << #x << ") failed!"
+    output_helper.out << __FILE__ << ":" << __LINE__ << ": CHECK(" << #x << ") failed!\n"
 
 namespace guylib {
 
